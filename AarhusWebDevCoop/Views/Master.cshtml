@@ -1,0 +1,76 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+      <style type="text/css">
+      
+          img {
+              max-width: 100%;
+              height: auto;
+          }
+       
+          
+      </style>
+    
+  </head>
+  <body>
+       <nav class=" navbar navbar-expand-lg navbar-light bg-light">
+
+          @Umbraco.RenderMacro("NavigationMenu")
+          </div>
+          </div>
+      </nav>
+      
+      <div class="jumbotron container-fluid"style="background-image: url(/images/panorama.jpg);background-size: cover;">>
+  
+      
+    <h1 class="display-4">Web dev</h1>
+    <p class="lead">Corporation of webdevelopers that are breaking through newest technology</p>
+  
+</div>
+
+
+
+      <!-- Navigation bar -->
+
+     
+
+      @RenderBody()
+
+
+
+
+
+
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+      <script src="~/Scripts/jquery.validate.min.js"></script>
+      <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+      <script src="~/Scripts/bootstrap.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      
+
+
+
+
+  </body>
+</html>

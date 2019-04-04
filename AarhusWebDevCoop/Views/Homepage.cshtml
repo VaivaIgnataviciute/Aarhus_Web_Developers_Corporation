@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Homepage>
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<div class="m-5 pb-5"><class="text-center">>@Umbraco.Field("mainContent")</class</div>
+@Umbraco.Field("projectsTitle")
+
+
+
+<div class="p-5"><h3 class="text-center">Our latest projects</h3></div>
+
+@Umbraco.RenderMacro("ListNewestProjects")

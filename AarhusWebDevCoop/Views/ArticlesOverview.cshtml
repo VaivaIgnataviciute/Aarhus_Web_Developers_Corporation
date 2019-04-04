@@ -1,0 +1,11 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ArticlesOverview>
+
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<div class="p-5"><h2>Articles</h2></div>
+</div>
+
+      @Umbraco.RenderMacro("ArticlesItems")

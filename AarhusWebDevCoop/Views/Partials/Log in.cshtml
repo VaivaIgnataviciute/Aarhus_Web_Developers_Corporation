@@ -1,0 +1,64 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+
+@using System.Web.Mvc.Html
+@using ClientDependency.Core.Mvc
+@using Umbraco.Web
+@using Umbraco.Web.Models
+@using Umbraco.Web.Controllers
+
+@{
+    var loginModel = new LoginModel();
+    
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    Html.RequiresJs("/umbraco_client/ui/jquery.js");
+    Html.RequiresJs("/umbraco_client/Application/JQuery/jquery.validate.min.js");
+    Html.RequiresJs("/umbraco_client/Application/JQuery/jquery.validate.unobtrusive.min.js");
+    <link rel="stylesheet" href="/css/navigation_menu.css" />
+}
+
+@* NOTE: This RenderJsHere code should be put on your main template page where the rest of your script tags are placed *@
+@Html.RenderJsHere()
+
+
+@if(!Members.GetCurrentLoginStatus().IsLoggedIn) {
+using (Html.BeginUmbracoForm<UmbLoginController>("HandleLogin"))
+{
+    <fieldset>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
+                <!-- Icon -->
+                <div class="fadeIn first">
+                    <img src="https://i.imgur.com/eg95tx7.png" id="icon" alt="User Icon" />
+                </div>
+                <!-- Login Form -->
+                @Html.ValidationSummary("loginModel", true)
+
+                @Html.TextBoxFor(m => loginModel.Username, new { @class="fadeIn second", placeholder = "Username" })
+                <br>
+                @Html.ValidationMessageFor(m => loginModel.Username)
+
+                @Html.PasswordFor(m => loginModel.Password, new { @class="fadeIn third", placeholder = "Password" })
+                <br>
+                @Html.ValidationMessageFor(m => loginModel.Password)
+
+                <button class="fadeIn fourth booton">Log in</button>
+            </div>
+        </div>
+    </fieldset>
+}
+}
+
+else {
+<div class="pl-4"><p>You are currently logged in as @Members.GetCurrentLoginStatus().Name</p></div>
+
+var logoutModel= new PostRedirectModel();
+logoutModel.RedirectUrl="/";
+using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout")) {
+ <div class="pl-4"><button type="button" class="btn btn-info">Logout</button></div>   
+@Html.HiddenFor( m=> logoutModel.RedirectUrl)
+
+}
+}

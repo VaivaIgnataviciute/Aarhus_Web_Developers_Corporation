@@ -1,0 +1,9 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactPage>
+
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="p-5"><h2>@Model.Name</h2></div>
+
+<div class="pl-4">@Html.Action("Index", "ContactFormSurface")</div>

@@ -1,0 +1,60 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Web
+
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the CSS class "current".
+*@
+
+@{
+   var root = Model.Content.Site();
+   var selection = root.Children.Where (x => x.IsVisible()).ToArray();   
+   IPublishedContent[] projectDropdown = Model.Content.AncestorOrSelf(1)
+   .Children
+   .Where (x => x.DocumentTypeAlias == "projectsOverview") 
+   .First()
+   .Children
+    .Where(x => x.HasValue("projectStatus") && Umbraco.GetPreValueAsString(x.GetPropertyValue<int>("projectStatus")) =="Developed")
+   .OrderBy("Name")
+    .Where("Visible")
+   .ToArray();
+   
+    
+}
+
+
+
+@if (selection.Length > 0) {
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <a class = "navbar-brand" href="@root.Url">@root.Name</a>
+    <ul class="navbar-nav">
+    @foreach (var item in selection) {
+        <li class="nav-item @(item.Name == "Projects" ? "dropdown" : null) @(item.IsAncestorOrSelf(Model.Content) ? "active" : null)"/>
+        if ( item.Name == "Projects") { 
+             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          @item.Name
+             </a>
+             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                 @foreach (IPublishedContent page in projectDropdown) {
+                    var isProtected = umbraco.library.IsProtected(page.Id, page.Path);
+                    var loginAccess = isProtected && umbraco.library.HasAccess(page.Id, page.Path);
+                    if(!isProtected || loginAccess){
+                        <a class="dropdown-item" href="@page.Url">@page.Name</a>
+                    }
+                 }
+            </div>
+        } else {
+        <a class="nav-link" href="@item.Url">@item.Name</a>
+        }
+        
+    
+        
+        
+    }
+  
+    </ul>
+</div>
+}
